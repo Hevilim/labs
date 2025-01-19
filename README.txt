@@ -1,1 +1,5 @@
-iefguiowds;l.blsjvdb;jsdbvoi;sdbvujoscb ;/jvbz sdjbl bdvljsbd v;luzhgv[p'joegfpiws]
+This .ipynb file contains Python syntax examples and usage
+
+Бұл .ipynb файлында Python синтаксисінің мысалдары мен қолданылуы бар
+
+Этот файл .ipynb содержит примеры синтаксиса Python и его использование.
