@@ -7,20 +7,20 @@ W = 300
 H = 800
 
 
-car = pygame.image.load("/Users/tevososepyan/Documents/PythonRep/lab8/sprites/unnamed.png")
+car = pygame.image.load("sprites/unnamed.png")
 car = pygame.transform.scale(car, (100, 100))
 
 score = 0
 
-enemy = pygame.image.load("/Users/tevososepyan/Documents/PythonRep/lab8/sprites/938z8l9w2ho51.png.webp")
+enemy = pygame.image.load("sprites/938z8l9w2ho51.png.webp")
 sprite_img = pygame.transform.scale(enemy, (100, 100))
 sprite_size = sprite_img.get_rect().size
 
 screen = pygame.display.set_mode((W, H))
 
-bg = pygame.image.load("/Users/tevososepyan/Documents/PythonRep/lab8/sprites/New Project-2.png")
+bg = pygame.image.load("sprites/New Project-2.png")
 
-coin = pygame.image.load("/Users/tevososepyan/Documents/PythonRep/lab8/sprites/2140382.png")
+coin = pygame.image.load("sprites/2140382.png")
 coin = pygame.transform.scale(coin, (100, 100))
 coin_size = coin.get_rect().size
 
