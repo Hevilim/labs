@@ -3,15 +3,18 @@ import sys
 import os
 
 pygame.init()
-
 pygame.mixer.init()
 
 WIDTH, HEIGHT = 600, 400
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Keyboard Music Player")
+pygame.display.set_caption("Simple Music Player")
 
 WHITE = (255, 255, 255)
+GRAY = (220, 220, 220)
 BLACK = (0, 0, 0)
+BLUE = (50, 150, 255)
+
+font = pygame.font.SysFont("Arial", 28, bold=True)
 
 playlist = [
     "songs/Chronos.mp3",
@@ -20,7 +23,13 @@ playlist = [
 ]
 
 current_song_index = 0
-is_paused = False
+
+def draw_button(x, y, w, h, text):
+    pygame.draw.rect(screen, GRAY, (x, y, w, h), border_radius=10)
+    pygame.draw.rect(screen, BLACK, (x, y, w, h), 2, border_radius=10)
+    text_surface = font.render(text, True, BLACK)
+    text_rect = text_surface.get_rect(center=(x + w // 2, y + h // 2))
+    screen.blit(text_surface, text_rect)
 
 def load_and_play(index):
     pygame.mixer.music.load(playlist[index])
@@ -29,9 +38,15 @@ def load_and_play(index):
 
 load_and_play(current_song_index)
 
-font = pygame.font.SysFont(None, 36)
-
 clock = pygame.time.Clock()
+
+button_width, button_height = 100, 50
+buttons = {
+    "Play": (50, 300),
+    "Stop": (170, 300),
+    "Prev": (290, 300),
+    "Next": (410, 300)
+}
 
 while True:
     screen.fill(WHITE)
@@ -42,39 +57,32 @@ while True:
             pygame.quit()
             sys.exit()
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                if pygame.mixer.music.get_busy():
-                    if not is_paused:
-                        pygame.mixer.music.pause()
-                        is_paused = True
-                        print("Paused")
-                    else:
-                        pygame.mixer.music.unpause()
-                        is_paused = False
-                        print("Resumed")
-                else:
-                    load_and_play(current_song_index)
-                    is_paused = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mx, my = pygame.mouse.get_pos()
+            for name, (bx, by) in buttons.items():
+                if bx <= mx <= bx + button_width and by <= my <= by + button_height:
+                    if name == "Play":
+                        load_and_play(current_song_index)
 
-            if event.key == pygame.K_s:
-                pygame.mixer.music.stop()
-                is_paused = False
-                print("Stopped")
+                    elif name == "Stop":
+                        pygame.mixer.music.stop()
+                        print("Stopped")
 
-            if event.key == pygame.K_RIGHT:
-                current_song_index = (current_song_index + 1) % len(playlist)
-                load_and_play(current_song_index)
-                is_paused = False
+                    elif name == "Next":
+                        current_song_index = (current_song_index + 1) % len(playlist)
+                        load_and_play(current_song_index)
 
-            if event.key == pygame.K_LEFT:
-                current_song_index = (current_song_index - 1) % len(playlist)
-                load_and_play(current_song_index)
-                is_paused = False
+                    elif name == "Prev":
+                        current_song_index = (current_song_index - 1) % len(playlist)
+                        load_and_play(current_song_index)
 
     song_name = os.path.basename(playlist[current_song_index])
-    text_surface = font.render(f"Now Playing: {song_name}", True, BLACK)
-    screen.blit(text_surface, (50, HEIGHT // 2))
+    title_surface = font.render(f"Now Playing: {song_name}", True, BLACK)
+    title_rect = title_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+    screen.blit(title_surface, title_rect)
+
+    for name, (x, y) in buttons.items():
+        draw_button(x, y, button_width, button_height, name)
 
     pygame.display.flip()
     clock.tick(30)
