@@ -14,9 +14,9 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 playlist = [
-    "/Users/tevososepyan/Documents/PythonRep/lab7/songs/Chronos.mp3",
-    "/Users/tevososepyan/Documents/PythonRep/lab7/songs/house_lo.mp3",
-    "/Users/tevososepyan/Documents/PythonRep/lab7/songs/Overdrive-Matrika.mp3"
+    "songs/Chronos.mp3",
+    "songs/house_lo.mp3",
+    "songs/Overdrive-Matrika.mp3"
 ]
 
 current_song_index = 0
